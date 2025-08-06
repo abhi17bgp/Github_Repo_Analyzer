@@ -96,7 +96,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl shadow-2xl p-6 sm:p-8 w-[80%] max-w-sm sm:max-w-md border border-white/20 transform transition-all duration-300 hover:scale-105">
+    <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-sm sm:max-w-md border border-white/20 transform transition-all duration-300 hover:scale-105">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center mb-4">
           <div className="p-3 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-full">

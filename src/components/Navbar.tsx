@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
                     onClick={openLoginModal}
                     className="flex items-center space-x-2 text-gray-300 hover:text-white text-sm font-medium transition-colors duration-200"
                   >
-                    <LogIn className="w-4 h-4" />
+                    <LogIn className="w-4 h-3" />
                     <span>Sign In</span>
                   </button>
                   <button
