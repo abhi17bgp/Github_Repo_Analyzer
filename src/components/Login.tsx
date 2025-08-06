@@ -5,11 +5,7 @@ import { useToast } from "../contexts/ToastContext";
 import { LogIn, UserPlus, Github } from "lucide-react";
 import { API_BASE_URL } from "../utils/api";
 
-interface LoginProps {
-  defaultMode?: "login" | "signup";
-}
-
-const Login: React.FC<LoginProps> = ({ defaultMode = "login" }) => {
+const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");

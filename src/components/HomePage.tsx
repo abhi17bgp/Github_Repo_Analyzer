@@ -60,33 +60,6 @@ const HomePage: React.FC = () => {
     { number: "<5s", label: "Average Response Time", icon: Zap },
   ];
 
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Senior Developer",
-      company: "TechCorp",
-      content:
-        "GitHub Analyzer has completely transformed how we understand our codebase. The AI insights are incredibly accurate.",
-      avatar: "SC",
-    },
-    {
-      name: "Marcus Rodriguez",
-      role: "Engineering Manager",
-      company: "StartupXYZ",
-      content:
-        "The visualization features help our team make better architectural decisions. Highly recommended!",
-      avatar: "MR",
-    },
-    {
-      name: "Emily Watson",
-      role: "Full Stack Developer",
-      company: "DevStudio",
-      content:
-        "Finally, a tool that makes repository analysis actually enjoyable and insightful.",
-      avatar: "EW",
-    },
-  ];
-
   const getColorClasses = (color: string) => {
     const colors = {
       blue: "bg-blue-500/20 text-blue-400 border-blue-400/30",
