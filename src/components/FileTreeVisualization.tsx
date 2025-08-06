@@ -100,11 +100,12 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
   const isInitializedRef = useRef(false);
 
   // Zoom state
-  const [zoomLevel, setZoomLevel] = useState();
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [panX, setPanX] = useState(0);
   const [panY, setPanY] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [forceUpdate, setForceUpdate] = useState(0);
+  const [isZoomEnabled, setIsZoomEnabled] = useState(true);
 
   // Calculate repository statistics
   const repoStats = useMemo(() => {
@@ -195,26 +196,6 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
 
       const width = dimensions.width - margin.left - margin.right;
       const height = dimensions.height - margin.top - margin.bottom;
-
-      // Create zoom behavior
-      const zoom = d3
-        .zoom()
-        .scaleExtent([0.1, 3])
-        .on("zoom", (event) => {
-          const { transform } = event;
-          setZoomLevel(transform.k);
-          setPanX(transform.x);
-          setPanY(transform.y);
-
-          g.attr("transform", transform);
-
-          // Update sliders if controls are visible
-          if (showControls) {
-            updateSliderValues();
-          }
-        });
-
-      svg.call(zoom as any);
 
       const g = svg
         .append("g")
@@ -398,11 +379,75 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
     } catch (error) {
       console.error("Error initializing tree visualization:", error);
     }
-  }, [memoizedData, dimensions, memoizedOnFileSelect, showControls]);
+  }, [
+    memoizedData,
+    dimensions,
+    memoizedOnFileSelect,
+    showControls,
+    isZoomEnabled,
+  ]);
+
+  // Effect to enable/disable zoom behavior based on isZoomEnabled state
+  useEffect(() => {
+    if (!svgRef.current) return;
+
+    const svg = d3.select(svgRef.current);
+
+    if (isZoomEnabled) {
+      // Re-enable zoom behavior
+      const zoom = d3
+        .zoom()
+        .scaleExtent([0.1, 3])
+        .filter(() => isZoomEnabled) // Only allow zoom when enabled
+        .on("zoom", (event) => {
+          if (!isZoomEnabled) return; // Exit if zoom is disabled
+
+          const { transform } = event;
+          setZoomLevel(transform.k);
+          setPanX(transform.x);
+          setPanY(transform.y);
+          const g = svg.select("g");
+          g.attr("transform", transform);
+
+          // Update sliders if controls are visible
+          if (showControls) {
+            updateSliderValues();
+          }
+        })
+        .on("start", (event) => {
+          if (!isZoomEnabled) return; // Exit if zoom is disabled
+          const svgElement = svgRef.current;
+          if (svgElement) {
+            svgElement.classList.add("cursor-grabbing");
+            svgElement.classList.remove("cursor-grab");
+          }
+        })
+        .on("end", (event) => {
+          if (!isZoomEnabled) return; // Exit if zoom is disabled
+          const svgElement = svgRef.current;
+          if (svgElement) {
+            svgElement.classList.remove("cursor-grabbing");
+            svgElement.classList.add("cursor-grab");
+          }
+        });
+
+      svg.call(zoom as any);
+    } else {
+      // Disable zoom behavior completely
+      svg.on(".zoom", null);
+
+      // Reset cursor class
+      const svgElement = svgRef.current;
+      if (svgElement) {
+        svgElement.classList.remove("cursor-grabbing");
+        svgElement.classList.add("cursor-grab");
+      }
+    }
+  }, [isZoomEnabled, showControls]);
 
   // Zoom controls
   const handleZoomIn = () => {
-    if (svgRef.current) {
+    if (svgRef.current && isZoomEnabled) {
       const svg = d3.select(svgRef.current);
       const newZoom = Math.min(zoomLevel * 1.2, 3);
       svg
@@ -413,7 +458,7 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
   };
 
   const handleZoomOut = () => {
-    if (svgRef.current) {
+    if (svgRef.current && isZoomEnabled) {
       const svg = d3.select(svgRef.current);
       const newZoom = Math.max(zoomLevel / 1.2, 0.1);
       svg
@@ -424,7 +469,7 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
   };
 
   const handleReset = () => {
-    if (svgRef.current) {
+    if (svgRef.current && isZoomEnabled) {
       const svg = d3.select(svgRef.current);
       svg
         .transition()
@@ -438,7 +483,7 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
     direction: "horizontal" | "vertical",
     value: number
   ) => {
-    if (svgRef.current) {
+    if (svgRef.current && isZoomEnabled) {
       const svg = d3.select(svgRef.current);
       const transform = d3.zoomTransform(svgRef.current);
 
@@ -474,13 +519,26 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col overflow-y-auto">
       <div className="mb-4 flex-shrink-0">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg sm:text-xl font-semibold text-gray-300">
             Repository Structure
           </h2>
           <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setIsZoomEnabled(!isZoomEnabled)}
+              className={`p-2 rounded-lg transition-all duration-200 ${
+                isZoomEnabled
+                  ? "bg-green-700 hover:bg-green-600 text-white"
+                  : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+              }`}
+              title={isZoomEnabled ? "Disable zoom" : "Enable zoom"}
+            >
+              <span className="text-xs font-medium">
+                {isZoomEnabled ? "Z: ON" : "Z: OFF"}
+              </span>
+            </button>
             <button
               onClick={() => setShowControls(!showControls)}
               className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-all duration-200"
@@ -560,7 +618,12 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={handleZoomOut}
-                    className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-all duration-200"
+                    disabled={!isZoomEnabled}
+                    className={`p-2 rounded-lg transition-all duration-200 ${
+                      isZoomEnabled
+                        ? "bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white"
+                        : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                    }`}
                     title="Zoom Out"
                   >
                     <ZoomOut className="w-4 h-4" />
@@ -570,14 +633,24 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
                   </span>
                   <button
                     onClick={handleZoomIn}
-                    className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-all duration-200"
+                    disabled={!isZoomEnabled}
+                    className={`p-2 rounded-lg transition-all duration-200 ${
+                      isZoomEnabled
+                        ? "bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white"
+                        : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                    }`}
                     title="Zoom In"
                   >
                     <ZoomIn className="w-4 h-4" />
                   </button>
                   <button
                     onClick={handleReset}
-                    className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-all duration-200"
+                    disabled={!isZoomEnabled}
+                    className={`p-2 rounded-lg transition-all duration-200 ${
+                      isZoomEnabled
+                        ? "bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white"
+                        : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                    }`}
                     title="Reset View"
                   >
                     <RotateCcw className="w-4 h-4" />
@@ -601,7 +674,12 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
                       onChange={(e) =>
                         handlePanChange("horizontal", parseInt(e.target.value))
                       }
-                      className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+                      disabled={!isZoomEnabled}
+                      className={`flex-1 h-2 rounded-lg appearance-none cursor-pointer slider ${
+                        isZoomEnabled
+                          ? "bg-gray-700"
+                          : "bg-gray-800 cursor-not-allowed"
+                      }`}
                     />
                     <span className="text-xs text-gray-400 w-12 text-right">
                       {Math.round(getCurrentPanX())}
@@ -617,7 +695,12 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
                       onChange={(e) =>
                         handlePanChange("vertical", parseInt(e.target.value))
                       }
-                      className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+                      disabled={!isZoomEnabled}
+                      className={`flex-1 h-2 rounded-lg appearance-none cursor-pointer slider ${
+                        isZoomEnabled
+                          ? "bg-gray-700"
+                          : "bg-gray-800 cursor-not-allowed"
+                      }`}
                     />
                     <span className="text-xs text-gray-400 w-12 text-right">
                       {Math.round(getCurrentPanY())}
@@ -632,7 +715,7 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
 
       <div
         ref={containerRef}
-        className="bg-gray-800 rounded-lg p-2 sm:p-4 flex-1 overflow-hidden min-h-0 border border-gray-700 scrollbar-thin relative"
+        className="bg-gray-800 rounded-lg p-2 sm:p-4 flex-1 overflow-x-auto overflow-y-hidden min-h-0 border border-gray-700 scrollbar-thin relative"
         style={{ minHeight: "400px" }}
       >
         <svg
@@ -640,11 +723,12 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
           width="100%"
           height="100%"
           className="min-h-64 sm:min-h-96 cursor-grab active:cursor-grabbing"
+          style={{ minWidth: "max-content" }}
         />
 
         {/* Zoom Instructions */}
         <div className="absolute bottom-2 right-2 text-xs text-gray-500 bg-gray-900/80 px-2 py-1 rounded">
-          Scroll to zoom • Drag to pan
+          {isZoomEnabled ? "Scroll to zoom • Drag to pan" : "Zoom disabled"}
         </div>
       </div>
     </div>

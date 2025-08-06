@@ -69,7 +69,7 @@ const Login: React.FC<LoginProps> = ({ defaultMode = "login" }) => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/auth/check-username/${username}`
+        `${API_BASE_URL}/auth/check-username/${username}`
       );
       const data = await response.json();
 

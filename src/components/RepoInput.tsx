@@ -45,7 +45,7 @@ const RepoInput: React.FC<RepoInputProps> = ({ onRepoAnalyzed }) => {
     progressIntervalRef.current = setInterval(async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/github/analyze/progress`
+          `${API_BASE_URL}/github/analyze/progress`
         );
         if (response.data.active) {
           setProgress(response.data.progress);
@@ -59,7 +59,7 @@ const RepoInput: React.FC<RepoInputProps> = ({ onRepoAnalyzed }) => {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/github/analyze`,
+        `${API_BASE_URL}/github/analyze`,
         {
           repoUrl: repoUrl.trim(),
           maxDepth: maxDepth,
@@ -107,7 +107,7 @@ const RepoInput: React.FC<RepoInputProps> = ({ onRepoAnalyzed }) => {
 
     try {
       // Also notify the server to cancel the analysis
-      await axios.post(`${API_BASE_URL}/api/github/analyze/cancel`, {
+      await axios.post(`${API_BASE_URL}/github/analyze/cancel`, {
         analysisId: Date.now().toString(),
       });
     } catch (error) {

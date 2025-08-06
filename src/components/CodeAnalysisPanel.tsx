@@ -69,7 +69,7 @@ const CodeAnalysisPanel: React.FC<CodeAnalysisPanelProps> = ({
     setAnalysis("");
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/ai/analyze-code`, {
+      const response = await axios.post(`${API_BASE_URL}/ai/analyze-code`, {
         fileContent: formattedContent,
         fileName: file.name,
       });
