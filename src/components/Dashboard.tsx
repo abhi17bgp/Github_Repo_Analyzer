@@ -224,9 +224,7 @@ const Dashboard: React.FC = () => {
               <h1 className="text-lg sm:text-xl font-bold truncate">
                 GitHub Repository Analyzer
               </h1>
-              <span className="hidden sm:inline-block mt-1 px-2 py-1 text-xs bg-green-600 text-white rounded-full">
-                Powered by Gemini AI
-              </span>
+             
             </div>
             <span className="sm:hidden ml-2 px-2 py-1 text-xs bg-green-600 text-white rounded-full flex-shrink-0">
               Powered by Gemini AI
