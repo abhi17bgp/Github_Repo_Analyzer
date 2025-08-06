@@ -1,14 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  X,
-  Brain,
-  Copy,
-  Check,
-  FileText,
-  Settings,
-  Search,
-  Terminal,
-} from "lucide-react";
+import { X, Brain, Copy, Check, FileText } from "lucide-react";
 import { useToast } from "../contexts/ToastContext";
 import axios from "axios";
 import { useJsonContent } from "../hooks/useJsonContent";

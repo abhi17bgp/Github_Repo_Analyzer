@@ -12,11 +12,8 @@ import {
 } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { useAuth } from "../contexts/AuthContext";
 
 const HomePage: React.FC = () => {
-  const { user } = useAuth();
-
   // Function to handle login button clicks
   const handleLoginClick = () => {
     // Since the login modal is handled by the Navbar component,

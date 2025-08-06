@@ -9,14 +9,7 @@ import React, {
   ReactNode,
 } from "react";
 import * as d3 from "d3";
-import {
-  Folder,
-  File,
-  FolderOpen,
-  ZoomIn,
-  ZoomOut,
-  RotateCcw,
-} from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 
 // Error Boundary Component
 interface ErrorBoundaryState {
@@ -104,7 +97,6 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
   const [panX, setPanX] = useState(0);
   const [panY, setPanY] = useState(0);
   const [showControls, setShowControls] = useState(false);
-  const [forceUpdate, setForceUpdate] = useState(0);
   const [isZoomEnabled, setIsZoomEnabled] = useState(true);
 
   // Calculate repository statistics
@@ -147,9 +139,6 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
   const memoizedOnFileSelect = useMemo(() => onFileSelect, [onFileSelect]);
 
   // Force re-render for slider updates
-  const updateSliderValues = () => {
-    setForceUpdate((prev) => prev + 1);
-  };
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -410,11 +399,8 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
           g.attr("transform", transform);
 
           // Update sliders if controls are visible
-          if (showControls) {
-            updateSliderValues();
-          }
         })
-        .on("start", (event) => {
+        .on("start", () => {
           if (!isZoomEnabled) return; // Exit if zoom is disabled
           const svgElement = svgRef.current;
           if (svgElement) {
@@ -422,7 +408,7 @@ const FileTreeVisualization: React.FC<FileTreeVisualizationProps> = ({
             svgElement.classList.remove("cursor-grab");
           }
         })
-        .on("end", (event) => {
+        .on("end", () => {
           if (!isZoomEnabled) return; // Exit if zoom is disabled
           const svgElement = svgRef.current;
           if (svgElement) {

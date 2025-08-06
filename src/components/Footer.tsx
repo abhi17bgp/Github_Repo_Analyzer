@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
       href: "https://github.com/abhi17bgp/Github_Repo_Analyzer/",
       icon: Github,
     },
-    ,
+
     {
       name: "LinkedIn",
       href: "https://www.linkedin.com/in/abhishek-anand-626a13288/",
