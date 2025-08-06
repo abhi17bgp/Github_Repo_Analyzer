@@ -226,9 +226,7 @@ const Dashboard: React.FC = () => {
               </h1>
              
             </div>
-            <span className="sm:hidden ml-2 px-2 py-1 text-xs bg-green-600 text-white rounded-full flex-shrink-0">
-              Powered by Gemini AI
-            </span>
+           
           </div>
 
           <div className="flex items-center space-x-2 sm:space-x-4">
