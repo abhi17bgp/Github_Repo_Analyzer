@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Github, Menu, X, Code, BarChart3, Brain, FileText, Zap, User, LogIn } from "lucide-react";
+import {
+  Github,
+  Menu,
+  X,
+  Home,
+  Zap,
+  User,
+  LogIn,
+  PieChart,
+  WorkflowIcon,
+} from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "./Login";
 
@@ -15,18 +25,18 @@ const Navbar: React.FC = () => {
       setIsMobileMenuOpen(false);
     };
 
-    window.addEventListener('openLoginModal', handleOpenLoginModal);
-    
+    window.addEventListener("openLoginModal", handleOpenLoginModal);
+
     return () => {
-      window.removeEventListener('openLoginModal', handleOpenLoginModal);
+      window.removeEventListener("openLoginModal", handleOpenLoginModal);
     };
   }, []);
 
   const navigation = [
-    { name: "Features", href: "#features", icon: BarChart3 },
-    { name: "AI Analysis", href: "#ai-analysis", icon: Brain },
-    { name: "Documentation", href: "#docs", icon: FileText },
-    { name: "Performance", href: "#performance", icon: Zap },
+    { name: "Home", href: "#Home", icon: Home },
+    { name: "Features", href: "#features", icon: Zap },
+    { name: "Stats", href: "#stats", icon: PieChart },
+    { name: "Working", href: "#working", icon: WorkflowIcon },
   ];
 
   const toggleMobileMenu = () => {
@@ -147,7 +157,7 @@ const Navbar: React.FC = () => {
                     <span className="text-sm font-medium">{item.name}</span>
                   </a>
                 ))}
-                
+
                 <div className="border-t border-gray-800 pt-4 mt-4">
                   {user ? (
                     <div className="space-y-2">
@@ -157,7 +167,9 @@ const Navbar: React.FC = () => {
                             {user.username?.charAt(0).toUpperCase() || "U"}
                           </span>
                         </div>
-                        <span className="text-sm font-medium text-white">{user.username}</span>
+                        <span className="text-sm font-medium text-white">
+                          {user.username}
+                        </span>
                       </div>
                       <button
                         onClick={handleLogout}
@@ -197,7 +209,9 @@ const Navbar: React.FC = () => {
           <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl w-full max-w-md">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-white">Sign In to GitHub Analyzer</h2>
+                <h2 className="text-xl font-semibold text-white">
+                  Sign In to GitHub Analyzer
+                </h2>
                 <button
                   onClick={closeLoginModal}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -214,4 +228,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

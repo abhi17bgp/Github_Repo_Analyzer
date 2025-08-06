@@ -5,21 +5,10 @@ import {
   Brain,
   FileText,
   Zap,
-  Star,
   Users,
-  Code,
   ArrowRight,
-  CheckCircle,
   Play,
-  Terminal,
-  GitBranch,
-  Cpu,
   Shield,
-  Globe,
-  Download,
-  BookOpen,
-  MessageCircle,
-  Clock,
 } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -65,27 +54,13 @@ const HomePage: React.FC = () => {
         "Get instant insights and analysis with our optimized processing engine and real-time updates.",
       color: "orange",
     },
-    {
-      icon: Shield,
-      title: "Security Analysis",
-      description:
-        "Identify potential security vulnerabilities and code quality issues with automated scanning.",
-      color: "red",
-    },
-    {
-      icon: GitBranch,
-      title: "Branch Analytics",
-      description:
-        "Track branch performance, merge patterns, and collaboration metrics across your repository.",
-      color: "indigo",
-    },
   ];
 
   const stats = [
-    { number: "10K+", label: "Active Users", icon: Users },
-    { number: "50K+", label: "Repositories Analyzed", icon: Github },
-    { number: "99.9%", label: "Uptime", icon: Shield },
-    { number: "<2s", label: "Average Response Time", icon: Zap },
+    { number: "100+", label: "Active Users", icon: Users },
+    { number: "500+", label: "Repositories Analyzed", icon: Github },
+    { number: "95.9%", label: "Uptime", icon: Shield },
+    { number: "<5s", label: "Average Response Time", icon: Zap },
   ];
 
   const testimonials = [
@@ -132,7 +107,7 @@ const HomePage: React.FC = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section id="Home" className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="text-center max-w-4xl mx-auto">
             {/* Left Content */}
@@ -167,29 +142,8 @@ const HomePage: React.FC = () => {
                   className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
                 >
                   <Play className="w-5 h-5" />
-                  <span>Get Started Free</span>
+                  <span>Get Started</span>
                 </button>
-                <button
-                  onClick={handleLoginClick}
-                  className="px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 flex items-center justify-center space-x-2"
-                >
-                  <Terminal className="w-5 h-5" />
-                  <span>View Demo</span>
-                </button>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="flex items-center justify-center space-x-6 text-sm text-gray-400">
-                <div className="flex items-center space-x-1">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <span className="ml-2">4.9/5</span>
-                </div>
-                <span>•</span>
-                <span>Trusted by 10,000+ developers</span>
               </div>
             </div>
           </div>
@@ -203,7 +157,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 border-t border-gray-800/50">
+      <section id="stats" className="py-16 border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -262,7 +216,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-gray-800/20">
+      <section id="working" className="py-20 bg-gray-800/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -313,48 +267,6 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Loved by Developers Worldwide
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              See what our users have to say about GitHub Analyzer
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="p-6 bg-gray-800/30 border border-gray-700/50 rounded-xl"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-semibold">
-                      {testimonial.avatar}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="text-white font-semibold">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-gray-400 text-sm">
-                      {testimonial.role} at {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-300 leading-relaxed">
-                  "{testimonial.content}"
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 border-t border-gray-800/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -362,7 +274,7 @@ const HomePage: React.FC = () => {
             Ready to Transform Your Repository Analysis?
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who trust GitHub Analyzer for their
+            Join hundreds of developers who trust GitHub Analyzer for their
             repository insights
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -373,13 +285,6 @@ const HomePage: React.FC = () => {
               <Github className="w-5 h-5" />
               <span>Start Analyzing Now</span>
               <ArrowRight className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleLoginClick}
-              className="px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 flex items-center justify-center space-x-2"
-            >
-              <BookOpen className="w-5 h-5" />
-              <span>Read Documentation</span>
             </button>
           </div>
         </div>
