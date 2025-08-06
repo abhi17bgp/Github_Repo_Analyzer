@@ -42,10 +42,10 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 border-t border-gray-800">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 ">
           {/* Brand Section */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <div className="p-2 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-lg border border-blue-400/30">
                 <Github className="w-6 h-6 text-blue-400" />
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
             </p>
 
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 ">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
