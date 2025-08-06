@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Search, Github, X } from "lucide-react";
 import { useToast } from "../contexts/ToastContext";
 import axios from "axios";
+import { API_BASE_URL } from "../utils/api";
 
 interface FileNode {
   name: string;
@@ -44,7 +45,7 @@ const RepoInput: React.FC<RepoInputProps> = ({ onRepoAnalyzed }) => {
     progressIntervalRef.current = setInterval(async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/github/analyze/progress"
+          `${API_BASE_URL}/api/github/analyze/progress`
         );
         if (response.data.active) {
           setProgress(response.data.progress);
@@ -58,7 +59,7 @@ const RepoInput: React.FC<RepoInputProps> = ({ onRepoAnalyzed }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/github/analyze",
+        `${API_BASE_URL}/api/github/analyze`,
         {
           repoUrl: repoUrl.trim(),
           maxDepth: maxDepth,
@@ -106,12 +107,9 @@ const RepoInput: React.FC<RepoInputProps> = ({ onRepoAnalyzed }) => {
 
     try {
       // Also notify the server to cancel the analysis
-      await axios.post(
-        "http://localhost:5000/api/github/analyze/cancel",
-        {
-          analysisId: Date.now().toString(),
-        }
-      );
+      await axios.post(`${API_BASE_URL}/api/github/analyze/cancel`, {
+        analysisId: Date.now().toString(),
+      });
     } catch (error) {
       console.error("Failed to notify server of cancellation:", error);
     }

@@ -68,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     checkAuth();
   }, [token]);
-
+  console.log("JHBJHBV", API_BASE_URL);
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, {

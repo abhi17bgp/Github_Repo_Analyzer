@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
   const handleLoginClick = () => {
     // Since the login modal is handled by the Navbar component,
     // we'll trigger it by dispatching a custom event
-    const event = new CustomEvent('openLoginModal');
+    const event = new CustomEvent("openLoginModal");
     window.dispatchEvent(event);
   };
 
@@ -40,37 +40,43 @@ const HomePage: React.FC = () => {
     {
       icon: BarChart3,
       title: "Visual Repository Analysis",
-      description: "Interactive visualizations of your repository structure with detailed dependency mapping and file relationships.",
+      description:
+        "Interactive visualizations of your repository structure with detailed dependency mapping and file relationships.",
       color: "blue",
     },
     {
       icon: Brain,
       title: "AI-Powered Code Insights",
-      description: "Intelligent analysis and summarization of your code files using advanced AI with context-aware insights.",
+      description:
+        "Intelligent analysis and summarization of your code files using advanced AI with context-aware insights.",
       color: "green",
     },
     {
       icon: FileText,
       title: "Smart Documentation",
-      description: "Generate comprehensive documentation and insights for your projects with automated code analysis.",
+      description:
+        "Generate comprehensive documentation and insights for your projects with automated code analysis.",
       color: "purple",
     },
     {
       icon: Zap,
       title: "Lightning Fast Processing",
-      description: "Get instant insights and analysis with our optimized processing engine and real-time updates.",
+      description:
+        "Get instant insights and analysis with our optimized processing engine and real-time updates.",
       color: "orange",
     },
     {
       icon: Shield,
       title: "Security Analysis",
-      description: "Identify potential security vulnerabilities and code quality issues with automated scanning.",
+      description:
+        "Identify potential security vulnerabilities and code quality issues with automated scanning.",
       color: "red",
     },
     {
       icon: GitBranch,
       title: "Branch Analytics",
-      description: "Track branch performance, merge patterns, and collaboration metrics across your repository.",
+      description:
+        "Track branch performance, merge patterns, and collaboration metrics across your repository.",
       color: "indigo",
     },
   ];
@@ -87,21 +93,24 @@ const HomePage: React.FC = () => {
       name: "Sarah Chen",
       role: "Senior Developer",
       company: "TechCorp",
-      content: "GitHub Analyzer has completely transformed how we understand our codebase. The AI insights are incredibly accurate.",
+      content:
+        "GitHub Analyzer has completely transformed how we understand our codebase. The AI insights are incredibly accurate.",
       avatar: "SC",
     },
     {
       name: "Marcus Rodriguez",
       role: "Engineering Manager",
       company: "StartupXYZ",
-      content: "The visualization features help our team make better architectural decisions. Highly recommended!",
+      content:
+        "The visualization features help our team make better architectural decisions. Highly recommended!",
       avatar: "MR",
     },
     {
       name: "Emily Watson",
       role: "Full Stack Developer",
       company: "DevStudio",
-      content: "Finally, a tool that makes repository analysis actually enjoyable and insightful.",
+      content:
+        "Finally, a tool that makes repository analysis actually enjoyable and insightful.",
       avatar: "EW",
     },
   ];
@@ -121,7 +130,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
@@ -133,29 +142,37 @@ const HomePage: React.FC = () => {
                   <div className="p-2 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-lg border border-blue-400/30">
                     <Github className="w-6 h-6 text-blue-400" />
                   </div>
-                  <span className="text-blue-400 text-sm font-medium">GitHub Analyzer v2.0</span>
+                  <span className="text-blue-400 text-sm font-medium">
+                    GitHub Analyzer v2.0
+                  </span>
                 </div>
-                
+
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
                   Analyze Your GitHub Repos
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
                     Like Never Before
                   </span>
                 </h1>
-                
+
                 <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                  Unlock the full potential of your repositories with AI-powered insights, 
-                  visualizations, and intelligent code analysis.
+                  Unlock the full potential of your repositories with AI-powered
+                  insights, visualizations, and intelligent code analysis.
                 </p>
               </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onClick={handleLoginClick} className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+                <button
+                  onClick={handleLoginClick}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
+                >
                   <Play className="w-5 h-5" />
                   <span>Get Started Free</span>
                 </button>
-                <button onClick={handleLoginClick} className="px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 flex items-center justify-center space-x-2">
+                <button
+                  onClick={handleLoginClick}
+                  className="px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 flex items-center justify-center space-x-2"
+                >
                   <Terminal className="w-5 h-5" />
                   <span>View Demo</span>
                 </button>
@@ -196,7 +213,9 @@ const HomePage: React.FC = () => {
                     <stat.icon className="w-6 h-6 text-blue-400" />
                   </div>
                 </div>
-                <div className="text-3xl lg:text-4xl font-bold text-white mb-2">{stat.number}</div>
+                <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  {stat.number}
+                </div>
                 <div className="text-gray-400 text-sm">{stat.label}</div>
               </div>
             ))}
@@ -212,7 +231,8 @@ const HomePage: React.FC = () => {
               Powerful Features for Modern Development
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Everything you need to understand, analyze, and improve your GitHub repositories
+              Everything you need to understand, analyze, and improve your
+              GitHub repositories
             </p>
           </div>
 
@@ -222,11 +242,19 @@ const HomePage: React.FC = () => {
                 key={index}
                 className="p-6 bg-gray-800/30 border border-gray-700/50 rounded-xl hover:bg-gray-800/50 hover:border-gray-600/50 transition-all duration-300 group"
               >
-                <div className={`p-3 rounded-lg border ${getColorClasses(feature.color)} w-fit mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div
+                  className={`p-3 rounded-lg border ${getColorClasses(
+                    feature.color
+                  )} w-fit mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
                   <feature.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -250,22 +278,36 @@ const HomePage: React.FC = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white font-bold text-xl">1</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Connect Repository</h3>
-              <p className="text-gray-400">Simply paste your GitHub repository URL or connect via OAuth</p>
+              <h3 className="text-xl font-semibold text-white mb-3">
+                Connect Repository
+              </h3>
+              <p className="text-gray-400">
+                Simply paste your GitHub repository URL or connect via OAuth
+              </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white font-bold text-xl">2</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">AI Analysis</h3>
-              <p className="text-gray-400">Our AI analyzes your codebase and generates comprehensive insights</p>
+              <h3 className="text-xl font-semibold text-white mb-3">
+                AI Analysis
+              </h3>
+              <p className="text-gray-400">
+                Our AI analyzes your codebase and generates comprehensive
+                insights
+              </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white font-bold text-xl">3</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Get Insights</h3>
-              <p className="text-gray-400">View visualizations, documentation, and actionable recommendations</p>
+              <h3 className="text-xl font-semibold text-white mb-3">
+                Get Insights
+              </h3>
+              <p className="text-gray-400">
+                View visualizations, documentation, and actionable
+                recommendations
+              </p>
             </div>
           </div>
         </div>
@@ -291,14 +333,22 @@ const HomePage: React.FC = () => {
               >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-semibold">{testimonial.avatar}</span>
+                    <span className="text-white font-semibold">
+                      {testimonial.avatar}
+                    </span>
                   </div>
                   <div>
-                    <div className="text-white font-semibold">{testimonial.name}</div>
-                    <div className="text-gray-400 text-sm">{testimonial.role} at {testimonial.company}</div>
+                    <div className="text-white font-semibold">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      {testimonial.role} at {testimonial.company}
+                    </div>
                   </div>
                 </div>
-                <p className="text-gray-300 leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-gray-300 leading-relaxed">
+                  "{testimonial.content}"
+                </p>
               </div>
             ))}
           </div>
@@ -312,15 +362,22 @@ const HomePage: React.FC = () => {
             Ready to Transform Your Repository Analysis?
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who trust GitHub Analyzer for their repository insights
+            Join thousands of developers who trust GitHub Analyzer for their
+            repository insights
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={handleLoginClick} className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+            <button
+              onClick={handleLoginClick}
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
+            >
               <Github className="w-5 h-5" />
               <span>Start Analyzing Now</span>
               <ArrowRight className="w-5 h-5" />
             </button>
-            <button onClick={handleLoginClick} className="px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 flex items-center justify-center space-x-2">
+            <button
+              onClick={handleLoginClick}
+              className="px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 flex items-center justify-center space-x-2"
+            >
               <BookOpen className="w-5 h-5" />
               <span>Read Documentation</span>
             </button>

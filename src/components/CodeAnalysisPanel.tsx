@@ -12,6 +12,7 @@ import {
 import { useToast } from "../contexts/ToastContext";
 import axios from "axios";
 import { useJsonContent } from "../hooks/useJsonContent";
+import { API_BASE_URL } from "../utils/api";
 
 interface CodeAnalysisPanelProps {
   file: {
@@ -68,13 +69,10 @@ const CodeAnalysisPanel: React.FC<CodeAnalysisPanelProps> = ({
     setAnalysis("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/ai/analyze-code",
-        {
-          fileContent: formattedContent,
-          fileName: file.name,
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/api/ai/analyze-code`, {
+        fileContent: formattedContent,
+        fileName: file.name,
+      });
 
       setAnalysis(response.data.analysis);
       setActiveTab("analysis");
